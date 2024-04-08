@@ -1,22 +1,25 @@
 #include <assert.h>
 #include <iostream>
 #include <sstream>
+#include "../src/vector/vector.h"
 #include "../src/repository/repo.h"
 #include "../src/domain/med.h"
 
 void test_create() {
     Repo r;
-    assert(r.getInventory().size() == 0);
+    Vector<Med>& inv = r.getInventory();
+    assert(inv.size() == 0);
 
     Med med1("Paracetamol", 10.5, "Zentiva", "Paracetamol");
     r.addMed(med1);
 
-    assert(r.getInventory().size() == 1);
-    assert(r.getInventory()[0].getId() == 1);
-    assert(r.getInventory()[0].getName() == "Paracetamol");
-    assert(r.getInventory()[0].getPrice() == 10.5);
-    assert(r.getInventory()[0].getProducer() == "Zentiva");
-    assert(r.getInventory()[0].getActiveSubstance() == "Paracetamol");
+    assert(inv.size() == 1);
+    Med med = inv.get(0);
+    assert(med.getId() == 1);
+    assert(med.getName() == "Paracetamol");
+    assert(med.getPrice() == 10.5);
+    assert(med.getProducer() == "Zentiva");
+    assert(med.getActiveSubstance() == "Paracetamol");
 }
 
 void test_setter() {
@@ -27,7 +30,10 @@ void test_setter() {
 
     r.addMed(med2);
 
-    std::vector<Med> newInventory = {med2, med3};
+    Vector<Med> newInventory = Vector<Med>();
+    newInventory.push(med2);
+    newInventory.push(med3);
+
     r.setInventory(newInventory);
 
     assert(r.getInventory().size() == 2);
@@ -45,7 +51,7 @@ void test_remove() {
     r.removeMed(4);
 
     assert(r.getInventory().size() == 1);
-    assert(r.getInventory()[0].getId() == 5);
+    assert(r.getInventory().get(0).getId() == 5);
 }
 
 void test_update() {
@@ -56,29 +62,27 @@ void test_update() {
 
     r.addMed(med6);
     r.addMed(med7);
-
-    Med med8("Nurofen", 15.5, "Zentiva", "Ibuprofen");
-    r.updateMed(6, med8);
+    r.updateMed(6, "Nurofen", 15.5, "Zentiva", "Ibuprofen");
 
     assert(r.getInventory().size() == 2);
-    assert(r.getInventory()[0].getName() == "Nurofen");
+    assert(r.getInventory().get(0).getName() == "Nurofen");
 }
 
 void test_stringify() {
     Repo r;
 
-    Med med9("Paracetamol", 10.5, "Zentiva", "Paracetamol");
-    Med med10("Nurofen", 15.5, "Zentiva", "Ibuprofen");
+    Med med8("Paracetamol", 10.5, "Zentiva", "Paracetamol");
+    Med med9("Nurofen", 15.5, "Zentiva", "Ibuprofen");
 
+    r.addMed(med8);
     r.addMed(med9);
-    r.addMed(med10);
 
     std::stringstream ss;
     ss << r;
 
     std::string expected = "Inventory: {\n";
-    expected += "Id: 9\nName: Paracetamol\nPrice: 10.5\nProducer: Zentiva\nActive substance: Paracetamol\n-------------------------------\n";
-    expected += "Id: 10\nName: Nurofen\nPrice: 15.5\nProducer: Zentiva\nActive substance: Ibuprofen\n-------------------------------\n";
+    expected += "Id: 8\nName: Paracetamol\nPrice: 10.5\nProducer: Zentiva\nActive substance: Paracetamol\n-------------------------------\n";
+    expected += "Id: 9\nName: Nurofen\nPrice: 15.5\nProducer: Zentiva\nActive substance: Ibuprofen\n-------------------------------\n";
     expected += "}\n";
 
     assert(ss.str() == expected);

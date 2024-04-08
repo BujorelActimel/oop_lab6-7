@@ -59,6 +59,23 @@ void test_push_pop_get_vector() {
     } catch (const char* msg) {
         assert(true);
     }
+
+    Vector<Med> v3;
+    v3.push(Med("a", 1, "a", "a"));
+    v3.push(Med("b", 2, "b", "b"));
+    v3.push(Med("c", 3, "c", "c"));
+    assert(v3.size() == 3);
+    v3.pop(0);
+    assert(v3.size() == 2);
+    assert(v3.get(0) == Med("b", 2, "b", "b"));
+
+    Vector<int> v4;
+    v4.push(1);
+    v4.push(2);
+    v4.push(3);
+    v4.pop(1);
+    assert(v4.size() == 2);
+    assert(v4.get(0) == 1);
 }
 
 int main() {

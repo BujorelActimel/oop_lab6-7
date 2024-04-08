@@ -225,6 +225,30 @@ src/ui/ui.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/ui/ui.cpp.s
 .PHONY : src/ui/ui.cpp.s
 
+src/vector/vector.o: src/vector/vector.cpp.o
+.PHONY : src/vector/vector.o
+
+# target to build an object file
+src/vector/vector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/vector/vector.cpp.o
+.PHONY : src/vector/vector.cpp.o
+
+src/vector/vector.i: src/vector/vector.cpp.i
+.PHONY : src/vector/vector.i
+
+# target to preprocess a source file
+src/vector/vector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/vector/vector.cpp.i
+.PHONY : src/vector/vector.cpp.i
+
+src/vector/vector.s: src/vector/vector.cpp.s
+.PHONY : src/vector/vector.s
+
+# target to generate assembly for a file
+src/vector/vector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/app.dir/build.make CMakeFiles/app.dir/src/vector/vector.cpp.s
+.PHONY : src/vector/vector.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -246,6 +270,9 @@ help:
 	@echo "... src/ui/ui.o"
 	@echo "... src/ui/ui.i"
 	@echo "... src/ui/ui.s"
+	@echo "... src/vector/vector.o"
+	@echo "... src/vector/vector.i"
+	@echo "... src/vector/vector.s"
 .PHONY : help
 
 

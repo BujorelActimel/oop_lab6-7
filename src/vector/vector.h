@@ -14,9 +14,11 @@ public:
 
     void pop();
 
-    T get(int index);
+    void pop(int index);
 
-    int size();
+    T& get(int index) const;
 
-    int get_capacity();
+    int size() const;
+
+    int get_capacity() const;
 };

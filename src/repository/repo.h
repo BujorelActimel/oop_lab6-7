@@ -1,16 +1,18 @@
 #pragma once
 
 #include "../domain/med.h"
-#include <vector>
+// #include <vector>
+#include "../vector/vector.h"
 
 class Repo {
 private:
-    std::vector<Med> inventory;
+    // std::vector<Med> inventory;
+    Vector<Med> inventory;
 
 public:
     Repo();
-    std::vector<Med> getInventory() const;
-    void setInventory(std::vector<Med> newInventory);
+    Vector<Med>& getInventory();
+    void setInventory(Vector<Med> newInventory);
 
     /**
      * @brief Adds a Med object to the repository's
@@ -29,7 +31,7 @@ public:
      * @param id id of the Med object that will get updated
      * @param newMed the Med object that will be mimiced
     */
-    void updateMed(int id, Med newMed);
+    void updateMed(int id, std::string new_name, double new_price, std::string new_producer, std::string new_active_substance);
 
     friend std::ostream& operator<<(std::ostream& os, const Repo& r);
 

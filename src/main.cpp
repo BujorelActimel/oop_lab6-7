@@ -42,8 +42,13 @@ public:
                 std::string producer = ui.inputString("Producator: ");
                 std::string activeSubstance = ui.inputString("Substanta activa: ");
 
-                Med med{name, price, producer, activeSubstance};
-                repo.updateMed(id, med);
+                repo.updateMed(
+                    id, 
+                    name, 
+                    price, 
+                    producer, 
+                    activeSubstance
+                );
                 ui.pressAnyKey("Medicament modificat cu succes!");
             }
             else if (cmd == 4) {

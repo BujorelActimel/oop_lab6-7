@@ -33,7 +33,17 @@ void Vector<T>::pop() {
 }
 
 template <typename T>
-T Vector<T>::get(int index) {
+void Vector<T>::pop(int index) {
+    if (index < current) {
+        for (int i = index; i < current - 1; ++i) {
+            arr[i] = arr[i + 1];
+        }
+        current--;
+    }
+}
+
+template <typename T>
+T& Vector<T>::get(int index) const {
     if (index < current) {
         return arr[index];
     }
@@ -41,12 +51,12 @@ T Vector<T>::get(int index) {
 }
 
 template <typename T>
-int Vector<T>::size() {
+int Vector<T>::size() const {
     return current;
 }
 
 template <typename T>
-int Vector<T>::get_capacity() {
+int Vector<T>::get_capacity() const {
     return capacity;
 }
 
