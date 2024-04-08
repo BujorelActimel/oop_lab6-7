@@ -39,6 +39,8 @@ app # Added here
 *.d
 
 # Directories
+build
+.vscode
 bin/
 build/
 debug/

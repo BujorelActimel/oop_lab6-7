@@ -1,4 +1,6 @@
 #include <iostream>
+#include "../vector/vector.h"
+#include "../domain/med.h"
 #include "ui.h"
 
 void UI::printMenu() const {
@@ -93,4 +95,12 @@ void UI::pressAnyKey(const std::string& message) const {
     std::cout << "Apasati orice tasta pentru a continua...";
     std::cin.get();
     std::cin.get();
+}
+
+void UI::printMedVector(const Vector<Med>& meds) const {
+    std::cout << "[\n";
+    for (int i = 0; i < meds.size(); i++) {
+        std::cout << meds.get(i) << "-------------------------------\n";
+    }
+    std::cout << "]\n";
 }

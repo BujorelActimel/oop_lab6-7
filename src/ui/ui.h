@@ -13,4 +13,5 @@ public:
     void exit() const;
     void pressAnyKey(const std::string& message) const;
     ~UI() = default;
+    void printMedVector(const Vector<Med>& meds) const;
 };
