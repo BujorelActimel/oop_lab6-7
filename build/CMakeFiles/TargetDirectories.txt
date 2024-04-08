@@ -1,0 +1,3 @@
+/mnt/c/Users/delia/OneDrive/Documente/Bujor/facultate/OOP/lab/lab6-7/build/CMakeFiles/app.dir
+/mnt/c/Users/delia/OneDrive/Documente/Bujor/facultate/OOP/lab/lab6-7/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/delia/OneDrive/Documente/Bujor/facultate/OOP/lab/lab6-7/build/CMakeFiles/rebuild_cache.dir

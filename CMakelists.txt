@@ -1,0 +1,8 @@
+cmake_minimum_required(VERSION 3.10)
+project(app)
+
+set(CMAKE_CXX_STANDARD 14)
+
+# Add all your source files here (separated by spaces)
+# Don't forget to include the header files if they're in a different directory
+add_executable(app src/main.cpp src/domain/med.cpp src/repository/repo.cpp src/ui/ui.cpp)

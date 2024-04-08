@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/app.dir/src/main.cpp.o CMakeFiles/app.dir/src/domain/med.cpp.o CMakeFiles/app.dir/src/repository/repo.cpp.o CMakeFiles/app.dir/src/ui/ui.cpp.o -o app 
