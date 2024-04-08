@@ -1,0 +1,70 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+app # Added here
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Package Files
+*.d
+
+# Directories
+bin/
+build/
+debug/
+dist/
+.vscode/
+*.sdf
+*.opensdf
+*.suo
+*.bak
+*.swp
+*.bbl
+*.blg
+*.pyc
+*.class
+*.slo
+*.lo
+*.o
+*.la
+*.al
+.libs/
+*.so
+*.so.[0-9]*
+*.a
+*.pyc
+*.swp
+*~
+*.bak
+*.#*
+.#*
