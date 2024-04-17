@@ -1,20 +1,20 @@
 #include <assert.h>
 #include <iostream>
 #include <sstream>
-#include "../src/vector/vector.h"
+#include <vector>
 #include "../src/repository/repo.h"
 #include "../src/domain/med.h"
 
 void test_create() {
     Repo r;
-    Vector<Med>& inv = r.getInventory();
+    std::vector<Med>& inv = r.getInventory();
     assert(inv.size() == 0);
 
     Med med1("Paracetamol", 10.5, "Zentiva", "Paracetamol");
     r.addMed(med1);
 
     assert(inv.size() == 1);
-    Med med = inv.get(0);
+    Med med = inv[0];
     assert(med.getId() == 1);
     assert(med.getName() == "Paracetamol");
     assert(med.getPrice() == 10.5);
@@ -30,9 +30,9 @@ void test_setter() {
 
     r.addMed(med2);
 
-    Vector<Med> newInventory = Vector<Med>();
-    newInventory.push(med2);
-    newInventory.push(med3);
+    std::vector<Med> newInventory = std::vector<Med>();
+    newInventory.push_back(med2);
+    newInventory.push_back(med3);
 
     r.setInventory(newInventory);
 
@@ -51,7 +51,7 @@ void test_remove() {
     r.removeMed(4);
 
     assert(r.getInventory().size() == 1);
-    assert(r.getInventory().get(0).getId() == 5);
+    assert(r.getInventory()[0].getId() == 5);
 }
 
 void test_update() {
@@ -65,7 +65,7 @@ void test_update() {
     r.updateMed(6, "Nurofen", 15.5, "Zentiva", "Ibuprofen");
 
     assert(r.getInventory().size() == 2);
-    assert(r.getInventory().get(0).getName() == "Nurofen");
+    assert(r.getInventory()[0].getName() == "Nurofen");
 }
 
 void test_stringify() {

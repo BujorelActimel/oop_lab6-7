@@ -10,9 +10,9 @@ Repo& Service::getRepo() {
 }
 
 Med& Service::searchMed(const std::string& name) {
-    Vector<Med> &inventory = getRepo().getInventory();
+    std::vector<Med> &inventory = getRepo().getInventory();
     for (int i = 0; i < inventory.size(); i++) {
-        Med &med = inventory.get(i);
+        Med &med = inventory[i];
         if (med.getName() == name) {
             return med;
         }
@@ -20,32 +20,32 @@ Med& Service::searchMed(const std::string& name) {
     throw std::exception();
 }
 
-Vector<Med> filterMed(Repo& repo, std::function<bool(const Med&)> filterFunc) {
-    Vector<Med> &inventory = repo.getInventory();
-    Vector<Med> filtered;
+std::vector<Med> filterMed(Repo& repo, std::function<bool(const Med&)> filterFunc) {
+    std::vector<Med> &inventory = repo.getInventory();
+    std::vector<Med> filtered;
     for (int i = 0; i < inventory.size(); i++) {
-        Med &med = inventory.get(i);
+        Med &med = inventory[i];
         if (filterFunc(med)) {
             Med med_cp = med;
-            filtered.push(med_cp);
+            filtered.push_back(med_cp);
         }
     }
     return filtered;
 }
 
-Vector<Med> sortedMed(Repo& repo, std::function<bool(const Med&, const Med&)> sortFunc) {
-    Vector<Med> &inventory = repo.getInventory();
-    Vector<Med> sorted;
+std::vector<Med> sortedMed(Repo& repo, std::function<bool(const Med&, const Med&)> sortFunc) {
+    std::vector<Med> &inventory = repo.getInventory();
+    std::vector<Med> sorted;
     for (int i = 0; i < inventory.size(); i++) {
-        Med &med = inventory.get(i);
-        sorted.push(med);
+        Med &med = inventory[i];
+        sorted.push_back(med);
     }
     for (int i = 0; i < sorted.size(); i++) {
         for (int j = i + 1; j < sorted.size(); j++) {
-            if (sortFunc(sorted.get(i), sorted.get(j))) {
-                Med med_cp = sorted.get(i);
-                sorted.get(i) = sorted.get(j);
-                sorted.get(j) = med_cp;
+            if (sortFunc(sorted[i], sorted[j])) {
+                Med med_cp = sorted[i];
+                sorted[i] = sorted[j];
+                sorted[j] = med_cp;
             }
         }
     }

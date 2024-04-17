@@ -2,30 +2,29 @@
 #include <iostream>
 
 Repo::Repo() {
-    inventory = Vector<Med>();
+    inventory = std::vector<Med>();
 }
 
 
-Vector<Med>& Repo::getInventory() {
+std::vector<Med>& Repo::getInventory() {
     return inventory;
 }
 
 
-void Repo::setInventory(Vector<Med> newInventory) {
+void Repo::setInventory(std::vector<Med> newInventory) {
     inventory = newInventory;
 }
 
 
 void Repo::addMed(Med m) {
-    // inventory.push_back(m);
-    inventory.push(m);
+    inventory.push_back(m);
 }
 
 
 void Repo::removeMed(int id) {
     for (int i = 0; i < inventory.size(); ++i) {
-        if (inventory.get(i).getId() == id) {
-            inventory.pop(i);
+        if (inventory[i].getId() == id) {
+            inventory.erase(inventory.begin() + i);
             return;
         }
     }
@@ -34,11 +33,11 @@ void Repo::removeMed(int id) {
 
 void Repo::updateMed(int id, std::string new_name, double new_price, std::string new_producer, std::string new_active_substance) {
     for (int i = 0; i < inventory.size(); ++i) {
-        if (inventory.get(i).getId() == id) {
-            inventory.get(i).setName(new_name);
-            inventory.get(i).setPrice(new_price);
-            inventory.get(i).setProducer(new_producer);
-            inventory.get(i).setActiveSubstance(new_active_substance);
+        if (inventory[i].getId() == id) {
+            inventory[i].setName(new_name);
+            inventory[i].setPrice(new_price);
+            inventory[i].setProducer(new_producer);
+            inventory[i].setActiveSubstance(new_active_substance);
             return;
         }
     }
@@ -48,7 +47,7 @@ void Repo::updateMed(int id, std::string new_name, double new_price, std::string
 std::ostream& operator<<(std::ostream& os, const Repo& r) {
     os << "Inventory: {\n";
     for (int i = 0; i < r.inventory.size(); ++i) {
-        os << r.inventory.get(i) << "-------------------------------\n";
+        os << r.inventory[i] << "-------------------------------\n";
     }
     os << "}\n";
     return os;

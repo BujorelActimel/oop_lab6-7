@@ -1,18 +1,18 @@
 #pragma once
 
 #include "../domain/med.h"
-// #include <vector>
-#include "../vector/vector.h"
+#include <vector>
+// #include "../vector/vector.h"
 
 class Repo {
 private:
-    // std::vector<Med> inventory;
-    Vector<Med> inventory;
+    std::vector<Med> inventory;
+    // Vector<Med> inventory;
 
 public:
     Repo();
-    Vector<Med>& getInventory();
-    void setInventory(Vector<Med> newInventory);
+    std::vector<Med>& getInventory();
+    void setInventory(std::vector<Med> newInventory);
 
     /**
      * @brief Adds a Med object to the repository's

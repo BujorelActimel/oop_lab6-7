@@ -1,6 +1,7 @@
 #include "../src/service/service.h"
 #include "../src/repository/repo.h"
 #include "../src/domain/med.h"
+#include <vector>
 #include <assert.h>
 #include <iostream>
 
@@ -42,7 +43,7 @@ void test_filter() {
         "b"
     ));
 
-    Vector<Med> filtered_by_price = filterMed(
+    std::vector<Med> filtered_by_price = filterMed(
         service.getRepo(), 
         [](const Med& med) {
             return med.getPrice() < 20;
@@ -50,7 +51,7 @@ void test_filter() {
     );
     assert(filtered_by_price.size() == 1);
 
-    Vector<Med> filtered_by_activeSubstance = filterMed(
+    std::vector<Med> filtered_by_activeSubstance = filterMed(
         service.getRepo(), 
         [](const Med& med) {
             return med.getActiveSubstance() == "a";
@@ -75,16 +76,16 @@ void test_sort() {
         "a", 
         "a"
     ));
-    assert(service.getRepo().getInventory().get(0).getName() == "b");
+    assert(service.getRepo().getInventory()[0].getName() == "b");
 
-    Vector<Med> sorted_by_name = sortedMed(
+    std::vector<Med> sorted_by_name = sortedMed(
         service.getRepo(), 
         [](const Med& med1, const Med& med2) {
             return med1.getName() > med2.getName();
         }
     );
 
-    assert(sorted_by_name.get(0).getName() == "a");
+    assert(sorted_by_name[0].getName() == "a");
 }
 
 int main() {
