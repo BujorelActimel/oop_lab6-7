@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
 class UI {
 public:
@@ -13,5 +14,5 @@ public:
     void exit() const;
     void pressAnyKey(const std::string& message) const;
     ~UI() = default;
-    void printMedVector(const Vector<Med>& meds) const;
+    void printMedVector(const std::vector<Med> meds) const;
 };

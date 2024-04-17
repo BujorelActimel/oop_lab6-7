@@ -1,5 +1,4 @@
 #include <iostream>
-#include "../vector/vector.h"
 #include "../domain/med.h"
 #include "ui.h"
 
@@ -97,10 +96,10 @@ void UI::pressAnyKey(const std::string& message) const {
     std::cin.get();
 }
 
-void UI::printMedVector(const Vector<Med>& meds) const {
+void UI::printMedVector(const std::vector<Med> meds) const {
     std::cout << "[\n";
-    for (int i = 0; i < meds.size(); i++) {
-        std::cout << meds.get(i) << "-------------------------------\n";
+    for (auto med : meds) {
+        std::cout << med << "-------------------------------\n";
     }
     std::cout << "]\n";
 }

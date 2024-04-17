@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
 #include "domain/med.h"
 #include "repository/repo.h"
 #include "service/service.h"
@@ -74,7 +76,7 @@ public:
                 int option = ui.inputInt("Criteriu: \n1. Pret\n2. Substanta activa\n>>> ");
                 if (option == 1) {
                     float price = ui.inputPrice("Pret: ");
-                    Vector<Med> filtered_by_price = filterMed(
+                    std::vector<Med> filtered_by_price = filterMed(
                         service.getRepo(),
                         [price](const Med& med) {
                             return med.getPrice() < price;
@@ -85,7 +87,7 @@ public:
                 }
                 else if (option == 2) {
                     std::string activeSubstance = ui.inputString("Substanta activa: ");
-                    Vector<Med> filtered_by_activeSubstance = filterMed(
+                    std::vector<Med> filtered_by_activeSubstance = filterMed(
                         service.getRepo(),
                         [activeSubstance](const Med& med) {
                             return med.getActiveSubstance() == activeSubstance;
@@ -99,42 +101,38 @@ public:
             else if (cmd == 7) {
                 int option = ui.inputInt("Criteriu: \n1. Nume\n2. Pret\n3. Producator\n4. Substanta activa\n>>> ");
                 if (option == 1) {
-                    Vector<Med> sorted_by_name = sortedMed(
-                        service.getRepo(),
-                        [](const Med& med1, const Med& med2) {
-                            return med1.getName() > med2.getName();
-                        }
-                    );
+                    std::vector<Med>& inventory = service.getRepo().getInventory();
+                    std::sort(inventory.begin(), inventory.end(), [](const Med& a, const Med& b) {
+                        return a.getName() < b.getName();
+                    });
+                    std::vector<Med>& sorted_by_name = inventory;
                     std::cout << "Medicamente sortate dupa nume:\n";
                     ui.printMedVector(sorted_by_name);
                 }
                 else if (option == 2) {
-                    Vector<Med> sorted_by_price = sortedMed(
-                        service.getRepo(),
-                        [](const Med& med1, const Med& med2) {
-                            return med1.getPrice() > med2.getPrice();
-                        }
-                    );
+                    std::vector<Med> inventory = service.getRepo().getInventory();
+                    std::sort(inventory.begin(), inventory.end(), [](const Med& a, const Med& b) {
+                        return a.getPrice() < b.getPrice();
+                    });
+                    std::vector<Med> sorted_by_price = inventory;
                     std::cout << "Medicamente sortate dupa pret:\n";
                     ui.printMedVector(sorted_by_price);
                 }
                 else if (option == 3) {
-                    Vector<Med> sorted_by_producer = sortedMed(
-                        service.getRepo(),
-                        [](const Med& med1, const Med& med2) {
-                            return med1.getProducer() > med2.getProducer();
-                        }
-                    );
+                    std::vector<Med> inventory = service.getRepo().getInventory();
+                    std::sort(inventory.begin(), inventory.end(), [](const Med& a, const Med& b) {
+                        return a.getProducer() < b.getProducer();
+                    });
+                    std::vector<Med> sorted_by_producer = inventory;
                     std::cout << "Medicamente sortate dupa producator:\n";
                     ui.printMedVector(sorted_by_producer);
                 }
                 else if (option == 4) {
-                    Vector<Med> sorted_by_activeSubstance = sortedMed(
-                        service.getRepo(),
-                        [](const Med& med1, const Med& med2) {
-                            return med1.getActiveSubstance() > med2.getActiveSubstance();
-                        }
-                    );
+                    std::vector<Med> inventory = service.getRepo().getInventory();
+                    std::sort(inventory.begin(), inventory.end(), [](const Med& a, const Med& b) {
+                        return a.getActiveSubstance() < b.getActiveSubstance();
+                    });
+                    std::vector<Med> sorted_by_activeSubstance = inventory;
                     std::cout << "Medicamente sortate dupa substanta activa:\n";
                     ui.printMedVector(sorted_by_activeSubstance);
                 }

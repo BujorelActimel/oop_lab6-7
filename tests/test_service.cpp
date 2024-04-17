@@ -60,38 +60,9 @@ void test_filter() {
     assert(filtered_by_activeSubstance.size() == 1);
 }
 
-void test_sort() {
-    Repo repo;
-    Service service(repo);
-
-    service.getRepo().addMed(Med(
-        "b", 
-        20, 
-        "b", 
-        "b"
-    ));
-    service.getRepo().addMed(Med(
-        "a", 
-        10, 
-        "a", 
-        "a"
-    ));
-    assert(service.getRepo().getInventory()[0].getName() == "b");
-
-    std::vector<Med> sorted_by_name = sortedMed(
-        service.getRepo(), 
-        [](const Med& med1, const Med& med2) {
-            return med1.getName() > med2.getName();
-        }
-    );
-
-    assert(sorted_by_name[0].getName() == "a");
-}
-
 int main() {
     test_searchMed();
     test_filter();
-    test_sort();
     
     std::cout << "All service tests passed!\n";
     return 0;

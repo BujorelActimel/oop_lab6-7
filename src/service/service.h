@@ -15,5 +15,3 @@ public:
 };
 
 std::vector<Med> filterMed(Repo& repo, std::function<bool(const Med&)> filterFunc);
-
-std::vector<Med> sortedMed(Repo& repo, std::function<bool(const Med&, const Med&)> sortFunc);
