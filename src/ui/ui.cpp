@@ -12,6 +12,7 @@ void UI::printMenu() const {
     std::cout << "5. Cauta medicament\n";
     std::cout << "6. Filtrare medicamente\n";
     std::cout << "7. Sortare medicamente\n";
+    std::cout << "8. Reteta\n";
     std::cout << "0. Exit\n";
 }
 
@@ -25,7 +26,7 @@ int UI::getCommand() const {
 
         try {
             int cmd = std::stoi(command);
-            if (cmd < 0 || cmd > 7) {
+            if (cmd < 0 || cmd > 8) {
                 throw std::exception();
             }
             return cmd;

@@ -4,16 +4,19 @@
 #include "domain/med.h"
 #include "repository/repo.h"
 #include "service/service.h"
+#include "prescription/prescription.h"
 #include "ui/ui.h"
+#include "medDTO/medDTO.h"
 
 class App {
 private:
     UI ui;
     Repo repo;
     Service service;
+    Prescription prescription;
 
 public:
-    App() : ui(), repo(), service(repo) {}
+    App() : ui(), repo(), service(repo), prescription(service.getRepo()) {}
 
     void run() {
         while (true) {
@@ -136,7 +139,38 @@ public:
                     std::cout << "Medicamente sortate dupa substanta activa:\n";
                     ui.printMedVector(sorted_by_activeSubstance);
                 }
+                else {
+                    std::cout << "Optiune invalida\n";
+                }
                 ui.pressAnyKey("");
+            }
+            else if (cmd == 8) {
+                int option = ui.inputInt("Optiuni reteta: \n1. Adauga\n2. Goleste\n3. Genereaza reteta random\n4. Raport\n>>> ");
+                if (option == 1) {
+                    std::string med_name = ui.inputString("Numele medicamentului: ");
+                    try {
+                        prescription.add_prescripted_med(med_name);
+                        ui.pressAnyKey("Medicament adaugat cu succes!");
+                    }
+                    catch (std::exception) {
+                        ui.pressAnyKey("Nu exista acest medicament");
+                    }
+                }
+                else if (option == 2) {
+                    prescription.empty();
+                    ui.pressAnyKey("Reteta golita cu succes");
+                }
+                else if (option == 3) {
+                    int num_of_meds = ui.inputInt("Numarul de medicamente: ");
+                    prescription.generate_random_prescription(num_of_meds);
+                    ui.pressAnyKey("Reteta generata cu succes");
+                }
+                else if (option == 4) {
+                    for (auto elem : prescription.raport()) {
+                        std::cout << elem.name << ": " << elem.count << '\n';
+                    }
+                    ui.pressAnyKey("");
+                }
             }
         }
     }
