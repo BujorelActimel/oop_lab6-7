@@ -2,6 +2,7 @@
 #include <string>
 #include <map>
 #include "../repository/repo.h"
+#include "../medDTO/medDTO.h"
 
 class Prescription {
 private:

@@ -1,5 +1,5 @@
 #include "prescription.h"
-#include "../medDTO/medDTO.h"
+// #include "../medDTO/medDTO.h"
 #include <cstdlib>
 #include <ctime>
 
@@ -32,7 +32,7 @@ void Prescription::generate_random_prescription(int num_of_meds) {
     // if (inventory.size() < num_of_meds) {
     //     throw std::runtime_error("Not enough meds in inventory");
     // }
-    prescripted_meds.empty();
+    this->empty();
     for (int i = 0; i < num_of_meds; ++i) {
         int random_index = rand() % inventory.size();
         prescripted_meds.push_back(inventory[random_index].getName());

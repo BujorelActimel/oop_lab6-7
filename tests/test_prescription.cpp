@@ -3,6 +3,7 @@
 #include "../src/prescription/prescription.h"
 #include "../src/repository/repo.h"
 #include "../src/domain/med.h"
+#include "../src/medDTO/medDTO.h"
 
 
 void test_add_prescripted_med() {
@@ -72,10 +73,10 @@ void test_raport() {
     prescription.add_prescripted_med("a");
     prescription.add_prescripted_med("b");
 
-    std::map<std::string, int> occurr = prescription.raport();
+    std::vector<MedDTO> occurr = prescription.raport();
 
-    assert(occurr["a"] == 2);
-    assert(occurr["b"] == 1);
+    assert(occurr[0].count == 2);
+    assert(occurr[1].count == 1);
 }
 
 int main() {
