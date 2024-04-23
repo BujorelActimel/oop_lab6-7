@@ -2,6 +2,7 @@
 // #include "../medDTO/medDTO.h"
 #include <cstdlib>
 #include <ctime>
+#include <fstream>
 
 
 Prescription::Prescription(Repo& repo) : repo(repo), prescripted_meds() {}
@@ -29,9 +30,10 @@ void Prescription::generate_random_prescription(int num_of_meds) {
 
     std::vector<Med>& inventory = repo.getInventory();
 
-    // if (inventory.size() < num_of_meds) {
-    //     throw std::runtime_error("Not enough meds in inventory");
+    // if (inventory.size() < 1) {
+    //     throw std::runtime_error("There are no meds in the inventory");
     // }
+
     this->empty();
     for (int i = 0; i < num_of_meds; ++i) {
         int random_index = rand() % inventory.size();
@@ -57,7 +59,15 @@ std::vector<MedDTO> Prescription::raport() {
     return result;
 }
 
-// void export_prescription();
+void Prescription::export_prescription(std::string file_name) {
+    std::ofstream file(file_name);
+    auto meds = getPrescriptedMeds();
+    int i = 1;
+    for (auto med : meds) {
+        file << i++ << ": " << med << '\n';
+    }
+    file.close();
+}
 
 Prescription::~Prescription() {}
 

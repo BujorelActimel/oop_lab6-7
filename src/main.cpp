@@ -145,7 +145,7 @@ public:
                 ui.pressAnyKey("");
             }
             else if (cmd == 8) {
-                int option = ui.inputInt("Optiuni reteta: \n1. Adauga\n2. Goleste\n3. Genereaza reteta random\n4. Raport\n>>> ");
+                int option = ui.inputInt("Optiuni reteta: \n1. Adauga\n2. Goleste\n3. Genereaza reteta random\n4. Raport\n5. Export\n>>> ");
                 if (option == 1) {
                     std::string med_name = ui.inputString("Numele medicamentului: ");
                     try {
@@ -170,6 +170,14 @@ public:
                         std::cout << elem.name << ": " << elem.count << '\n';
                     }
                     ui.pressAnyKey("");
+                }
+                else if (option == 5) {
+                    std::string file_name = ui.inputString("Numele fisierului: ");
+                    prescription.export_prescription(file_name);
+                    ui.pressAnyKey("Reteta exportata cu succes in " + file_name);
+                }
+                else {
+                    ui.pressAnyKey("Optiune invalida");
                 }
             }
         }

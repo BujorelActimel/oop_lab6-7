@@ -20,7 +20,7 @@ public:
     
     void generate_random_prescription(int num_of_meds);
     
-    void export_prescription();
+    void export_prescription(std::string file_name);
     
     friend std::ostream& operator<<(std::ostream& os, const Med& med);
 
