@@ -16,7 +16,7 @@ private:
     Prescription prescription;
 
 public:
-    App() : ui(), repo(), service(repo), prescription(service.getRepo()) {}
+    App() : ui(), repo("data/meds.csv"), service(repo), prescription(service.getRepo()) {}
 
     void run() {
         while (true) {

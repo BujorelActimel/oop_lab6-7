@@ -1,8 +1,10 @@
 #include "repo.h"
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
-Repo::Repo() {
-    inventory = std::vector<Med>();
+Repo::Repo(std::string file_name) : file_name(file_name), inventory() {
+    loadFromFile();
 }
 
 
@@ -18,6 +20,7 @@ void Repo::setInventory(std::vector<Med> newInventory) {
 
 void Repo::addMed(Med m) {
     inventory.push_back(m);
+    saveToFile();
 }
 
 
@@ -28,6 +31,7 @@ void Repo::removeMed(int id) {
             return;
         }
     }
+    saveToFile();
 }
 
 
@@ -41,6 +45,7 @@ void Repo::updateMed(int id, std::string new_name, double new_price, std::string
             return;
         }
     }
+    saveToFile();
 }
 
 
@@ -51,6 +56,39 @@ std::ostream& operator<<(std::ostream& os, const Repo& r) {
     }
     os << "}\n";
     return os;
+}
+
+std::vector<std::string> split(const std::string &s, char delimiter) {
+    std::vector<std::string> tokens;
+    std::string token;
+    std::istringstream tokenStream(s);
+    while (std::getline(tokenStream, token, delimiter)) {
+        tokens.push_back(token);
+    }
+    return tokens;
+}
+
+void Repo::saveToFile() {
+    std::ofstream out(file_name);
+    for (const auto& med : getInventory()) {
+        out << med.getName() << ',' << med.getPrice() << ',' << med.getProducer() << ',' << med.getActiveSubstance() << "\n";
+    }
+    out.close();
+}
+
+void Repo::loadFromFile() {
+    std::ifstream in(file_name);
+    std::string line;
+    while (std::getline(in, line)) {
+        std::vector<std::string> line_split = split(line, ',');
+        Repo::addMed(Med(
+            line_split[0], // std::string name;
+            std::stof(line_split[1]), // float price;
+            line_split[2], // std::string producer;
+            line_split[3] // std::string activeSubstance;
+        ));
+    }
+    in.close();
 }
 
 
