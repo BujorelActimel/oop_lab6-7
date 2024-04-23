@@ -2,6 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <fstream>
+#include <cstdio>
 #include "../src/repository/repo.h"
 #include "../src/domain/med.h"
 
@@ -88,12 +90,52 @@ void test_stringify() {
     assert(ss.str() == expected);
 }
 
+void test_saveToFile() {
+    Repo r("test.csv");
+
+    Med med1("Paracetamol", 10.5, "Zentiva", "Paracetamol");
+    Med med2("Nurofen", 15.5, "Zentiva", "Ibuprofen");
+
+    r.addMed(med1);
+    r.addMed(med2);
+
+    r.saveToFile();
+
+    std::ifstream file("test.csv");
+    std::string line;
+    std::getline(file, line);
+    assert(line == "Paracetamol,10.5,Zentiva,Paracetamol");
+    std::getline(file, line);
+    assert(line == "Nurofen,15.5,Zentiva,Ibuprofen");
+    file.close();
+}
+
+void test_loadFromFile() {
+    Repo r("test.csv");
+
+    std::vector<Med>& inv = r.getInventory();
+    assert(inv.size() == 2);
+
+    assert(inv[0].getName() == "Paracetamol");
+    assert(inv[0].getPrice() == 10.5);
+    assert(inv[0].getProducer() == "Zentiva");
+    assert(inv[0].getActiveSubstance() == "Paracetamol");
+
+    assert(inv[1].getName() == "Nurofen");
+    assert(inv[1].getPrice() == 15.5);
+    assert(inv[1].getProducer() == "Zentiva");
+    assert(inv[1].getActiveSubstance() == "Ibuprofen");
+    std::remove("test.csv");
+}
+
 int main() {
     test_create();
     test_setter();
     test_remove();
     test_update();
     test_stringify();
+    test_saveToFile();
+    test_loadFromFile();
 
     std::cout << "All repository tests passed!\n";
     return 0;

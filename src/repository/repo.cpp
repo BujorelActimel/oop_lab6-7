@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 
+Repo::Repo() : inventory() {}
+
 Repo::Repo(std::string file_name) : file_name(file_name), inventory() {
     loadFromFile();
 }
@@ -28,10 +30,10 @@ void Repo::removeMed(int id) {
     for (auto it = inventory.begin(); it != inventory.end(); ++it) {
         if (it->getId() == id) {
             inventory.erase(it);
+            saveToFile();
             return;
         }
     }
-    saveToFile();
 }
 
 
@@ -42,10 +44,10 @@ void Repo::updateMed(int id, std::string new_name, double new_price, std::string
             elem.setPrice(new_price);
             elem.setProducer(new_producer);
             elem.setActiveSubstance(new_active_substance);
+            saveToFile();
             return;
         }
     }
-    saveToFile();
 }
 
 

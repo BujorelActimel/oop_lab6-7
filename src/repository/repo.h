@@ -11,6 +11,7 @@ private:
     // Vector<Med> inventory;
 
 public:
+    Repo();
     Repo(std::string file_name);
     std::vector<Med>& getInventory();
     void setInventory(std::vector<Med> newInventory);
