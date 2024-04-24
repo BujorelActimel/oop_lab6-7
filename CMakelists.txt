@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 14)
 
 # Add all your source files here (separated by spaces)
 # Don't forget to include the header files if they're in a different directory
-add_executable(app src/main.cpp src/domain/med.cpp src/repository/repo.cpp src/ui/ui.cpp src/service/service.cpp src/prescription/prescription.cpp src/medDTO/medDTO.cpp)
+add_executable(app src/main.cpp src/domain/med.cpp src/repository/repo.cpp src/ui/ui.cpp src/service/service.cpp src/prescription/prescription.cpp src/medDTO/medDTO.cpp src/undo/undo.cpp)

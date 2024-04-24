@@ -94,4 +94,13 @@ void Repo::loadFromFile() {
 }
 
 
+Med& Repo::getMed(int id) {
+    for (auto& med : inventory) {
+        if (med.getId() == id) {
+            return med;
+        }
+    }
+    throw std::exception();
+}
+
 Repo::~Repo() {}

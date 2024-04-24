@@ -128,6 +128,24 @@ void test_loadFromFile() {
     std::remove("test.csv");
 }
 
+void test_getMed() {
+    Repo r;
+
+    Med med("Paracetamol", 10.5, "Zentiva", "Paracetamol");
+
+    r.addMed(med);
+
+    Med& med_refference = r.getMed(14);
+    assert(med_refference.getName() == "Paracetamol");
+
+    try {
+        Med& not_found = r.getMed(100);
+        assert(false);
+    } catch (std::exception& e) {
+        assert(true);
+    }
+}
+
 int main() {
     test_create();
     test_setter();
@@ -136,6 +154,7 @@ int main() {
     test_stringify();
     test_saveToFile();
     test_loadFromFile();
+    test_getMed();
 
     std::cout << "All repository tests passed!\n";
     return 0;

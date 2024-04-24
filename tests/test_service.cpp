@@ -5,6 +5,31 @@
 #include <assert.h>
 #include <iostream>
 
+void test_crud_undo() {
+    Repo repo;
+    Service service(repo);
+
+    Med med1("a", 1, "a", "a");
+    Med med2("b", 2, "b", "b");
+
+    service.addMed(med1);
+    service.addMed(med2);
+    assert(service.getRepo().getInventory().size() == 2);
+
+    service.performUndo();
+    assert(service.getRepo().getInventory().size() == 1);
+
+    service.removeMed(service.getRepo().getMed(1));
+    assert(service.getRepo().getInventory().size() == 0);
+    service.performUndo();
+    assert(service.getRepo().getInventory().size() == 1);
+
+    service.updateMed(med1, "d", 10, "d", "d");
+    assert(service.getRepo().getMed(1).getName() == "d");
+    service.performUndo();
+    assert(service.getRepo().getMed(1).getName() != "d");
+}
+
 void test_searchMed() {
     Repo repo;
     Service service(repo);
@@ -12,8 +37,8 @@ void test_searchMed() {
     Med med1("a", 1, "a", "a");
     Med med2("b", 2, "b", "b");
 
-    service.getRepo().addMed(med1);
-    service.getRepo().addMed(med2);
+    service.addMed(med1);
+    service.addMed(med2);
 
     assert(service.searchMed("a").getName() == "a");
     assert(service.searchMed("b").getName() == "b");
@@ -30,13 +55,13 @@ void test_filter() {
     Repo repo;
     Service service(repo);
 
-    service.getRepo().addMed(Med(
+    service.addMed(Med(
         "a", 
         10, 
         "a", 
         "a"
     ));
-    service.getRepo().addMed(Med(
+    service.addMed(Med(
         "b", 
         20, 
         "b", 
@@ -61,6 +86,7 @@ void test_filter() {
 }
 
 int main() {
+    test_crud_undo();
     test_searchMed();
     test_filter();
     

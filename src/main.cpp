@@ -36,12 +36,19 @@ public:
                 std::string activeSubstance = ui.inputString("Substanta activa: ");
 
                 Med med{name, price, producer, activeSubstance};
-                service.getRepo().addMed(med);
+                service.addMed(med);
                 ui.pressAnyKey("Medicament adaugat cu succes!");
             }
             else if (cmd == 2) {
                 int id = ui.inputInt("Id: ");
-                service.getRepo().removeMed(id);
+                Med med;
+                try {
+                    med = service.getRepo().getMed(id);
+                } catch (std::exception& e) {
+                    ui.pressAnyKey("Medicamentul nu a fost gasit");
+                    continue;
+                }
+                service.removeMed(med);
                 ui.pressAnyKey("Medicament sters cu succes!");
             }
             else if (cmd == 3) {
@@ -50,9 +57,17 @@ public:
                 float price = ui.inputPrice("Pret: ");
                 std::string producer = ui.inputString("Producator: ");
                 std::string activeSubstance = ui.inputString("Substanta activa: ");
+                
+                Med med;
+                try {
+                    med = service.getRepo().getMed(id);
+                } catch (std::exception& e) {
+                    ui.pressAnyKey("Medicamentul nu a fost gasit");
+                    continue;
+                }
 
-                service.getRepo().updateMed(
-                    id, 
+                service.updateMed(
+                    med, 
                     name, 
                     price, 
                     producer, 
@@ -179,6 +194,10 @@ public:
                 else {
                     ui.pressAnyKey("Optiune invalida");
                 }
+            }
+            else if (cmd == 9) {
+                service.performUndo();
+                ui.pressAnyKey("Undo-ul a fost facut cu succes");
             }
         }
     }

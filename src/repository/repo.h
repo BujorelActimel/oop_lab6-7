@@ -39,6 +39,8 @@ public:
 
     void loadFromFile();
 
+    Med& getMed(int id);
+
     friend std::ostream& operator<<(std::ostream& os, const Repo& r);
 
     ~Repo();
